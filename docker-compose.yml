@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: clara_frontend
+    ports:
+      - "8069:8069"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8069"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - clara_net
+
+  backend:
+    build:
+      context: ./py_backend
+      dockerfile: Dockerfile
+    container_name: clara_backend
+    ports:
+      - "5000:5000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - clara_net
+    environment:
+      - OLLAMA_HOST=192.168.1.8
+
+networks:
+  clara_net:
+    driver: bridge 
