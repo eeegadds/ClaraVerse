@@ -2,7 +2,7 @@ import { OllamaConnection } from './OllamaTypes';
 
 // Default connection settings
 const DEFAULT_CONNECTION: OllamaConnection = {
-  host: '192.168.1.8',
+  host: '192.168.1.4',
   port: 11434,
   secure: false
 };
